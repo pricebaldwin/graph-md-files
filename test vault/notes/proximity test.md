@@ -1,0 +1,1 @@
+This is a note with the same name as a note in [[sub notes/proximity test]]. This is the proximate note, from index.md.

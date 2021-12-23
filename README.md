@@ -1,0 +1,2 @@
+- [ ] Make support markdown style links.
+- [ ] Add links to graph which do not exists as files.

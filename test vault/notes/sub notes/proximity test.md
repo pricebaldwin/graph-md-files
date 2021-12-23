@@ -1,0 +1,1 @@
+This note is used for testing finding a note by proximity.
