@@ -9,23 +9,21 @@ import {
   FrontmatterContent,
   GraphNode,
   GraphOptions,
-  MarkdownGraph
+  MarkdownGraph,
 } from './types/types'
 import {
   findLinks,
-  getFilesInDirectory as getMarkdownInDirectory
+  getFilesInDirectory as getMarkdownInDirectory,
 } from './utils'
 
-const parser = unified()
-  .use(markdown)
-  .use(wikiLinkPlugin)
+const parser = unified().use(markdown).use(wikiLinkPlugin)
 
 export function makeGraph(
   rootPath: string,
   options: GraphOptions = {
     mode: 'Relative Path',
     caseSensitivity: false,
-    nonexistantLinkMode: 'Ignore'
+    nonexistantLinkMode: 'Ignore',
   }
 ): MarkdownGraph {
   if (!fs.existsSync(rootPath)) {
@@ -38,7 +36,7 @@ export function makeGraph(
   const allFiles = getMarkdownInDirectory(rootPath)
 
   // Each file is a node on the graph. No edges, yet, since we need all the things to attach them to first.
-  allFiles.forEach(filePath => {
+  allFiles.forEach((filePath) => {
     // Get the full content of the file, along with any frontmatter data.
     const fileDetails = matter.read(filePath) as FrontmatterContent
 
@@ -50,21 +48,19 @@ export function makeGraph(
       filePath: filePath,
       isEmpty: fileDetails.isEmpty,
       title: path.parse(filePath).name,
-      hash: crypto
-        .createHash('md5')
-        .update(fileDetails.content)
-        .digest('hex'),
-      links: {}
+      hash: crypto.createHash('md5').update(fileDetails.content).digest('hex'),
+      links: {},
     } as GraphNode
   })
 
   /**
    * Finds the closest path within the graph to the given file by name.
+   *
    * @param fileName
    */
   function findClosestMatchToFile(fileName: string) {
     // Get any paths that contain the fileName
-    const matches = Object.keys(siteGraph.nodes).filter(filePath => {
+    const matches = Object.keys(siteGraph.nodes).filter((filePath) => {
       return !!filePath.includes(fileName)
     })
 
@@ -78,15 +74,15 @@ export function makeGraph(
   // Now that we have all the nodes, we can find all the links in each node.
   Object.entries(siteGraph.nodes).forEach(([key, value]) => {
     if (value.content) {
-      const ast = parser.parse(value.content as string)
+      const ast = parser.parse(value.content)
       const links = findLinks(ast)
 
       // Now we have to get the path for each link in the document.
-      links.forEach(l => {
+      links.forEach((l) => {
         // Pipes are used by Obsidian to make an alias
         const parts = l.split('|')
 
-        //If there is a second part, it is the title of the link.
+        // If there is a second part, it is the title of the link.
         const linkFileName = path.extname(parts[0])
           ? parts[0]
           : parts[0] + '.md'
@@ -117,7 +113,7 @@ export function makeGraph(
 
         siteGraph.nodes[key].links[fullPath] = {
           direction: 'out',
-          alias: parts[1]
+          alias: parts[1],
         }
         siteGraph.nodes[fullPath].links[key] = { direction: 'in' }
       })
