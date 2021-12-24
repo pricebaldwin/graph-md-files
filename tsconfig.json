@@ -10,7 +10,6 @@
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "declarationDir": "coverage/dist/types",
     "typeRoots": ["node_modules/@types", "./src/types"]
   },
   "include": ["src"]

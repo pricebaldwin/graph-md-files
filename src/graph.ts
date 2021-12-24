@@ -24,7 +24,7 @@ export function makeGraph(
     mode: 'Relative Path',
     caseSensitivity: false,
     nonexistantLinkMode: 'Ignore',
-  }
+  },
 ): MarkdownGraph {
   if (!fs.existsSync(rootPath)) {
     throw new Error('Vault path does not exist.')
