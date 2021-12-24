@@ -1,6 +1,7 @@
 {
   "name": "graph-md-files",
   "version": "0.1.0",
+  "license": "MIT",
   "description": "Takes a folder containing markdown files and produces a graph object containing relationships between the files based on markdown links or wikilinks",
   "keywords": [
     "markdown",
@@ -20,7 +21,6 @@
     "type": "git",
     "url": ""
   },
-  "license": "MIT",
   "engines": {
     "node": ">=6.0.0"
   },
@@ -30,7 +30,6 @@
     "start": "parcel watch",
     "test": "jest --coverage",
     "test:watch": "jest --coverage --watch",
-    "test:prod": "npm run lint && npm run test -- --no-cache",
     "commit": "git-cz",
     "precommit": "lint-staged"
   },
@@ -87,17 +86,16 @@
   "devDependencies": {
     "@babel/core": "^7.14.8",
     "@babel/preset-env": "^7.14.8",
-    "@commitlint/cli": "^7.1.2",
-    "@commitlint/config-conventional": "^7.1.2",
+    "@commitlint/cli": "^15.0.0",
+    "@commitlint/config-conventional": "^15.0.0",
     "@parcel/transformer-typescript-types": "^2.0.1",
     "@types/jest": "^26.0.24",
     "@types/node": "^16.4.8",
     "@typescript-eslint/eslint-plugin": "^5.8.0",
-    "@typescript-eslint/eslint-plugin-tslint": "^5.8.0",
     "@typescript-eslint/parser": "^5.8.0",
     "babel-jest": "^27.0.6",
     "babel-preset-env": "^1.7.0",
-    "commitizen": "^3.0.0",
+    "commitizen": "^4.2.4",
     "cross-env": "^5.2.0",
     "cz-conventional-changelog": "^2.1.0",
     "eslint": "^8.5.0",
@@ -105,19 +103,16 @@
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-jsdoc": "^37.4.0",
     "husky": "^1.0.1",
-    "jest": "^27.0.6",
-    "jest-config": "^23.6.0",
+    "jest": "^27.4.5",
     "lint-staged": "^8.0.0",
     "parcel": "^2.0.1",
     "prettier": "^2.5.1",
     "shelljs": "^0.8.4",
     "ts-jest": "^27.0.4",
     "ts-node": "^7.0.1",
-    "typedoc": "^0.12.0",
     "typescript": "^4.5.4"
   },
   "dependencies": {
-    "@swc/helpers": "^0.3.2",
     "glob": "^7.2.0",
     "gray-matter": "^4.0.3",
     "remark-parse": "^9.0.0",
