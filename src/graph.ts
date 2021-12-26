@@ -90,8 +90,6 @@ export function makeGraph(
           ? parts[0]
           : parts[0] + '.md'
 
-        console.log(linkFileName)
-
         // As of 2021-11-01, Obsidian supports three modes of link creation.
         // However, this only effects _new_ links, so we must be prepared to resolve
         // any of the three types.
