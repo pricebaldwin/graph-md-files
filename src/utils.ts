@@ -4,7 +4,9 @@ import { Node } from 'unist'
 
 export function getFilesInDirectory(directoryPath: string): string[] {
   const p = path.join(directoryPath, '/**/*.md')
-  return glob.sync(p)
+
+  // The `realpath` setting here makes glob return Windows-style paths on Windows instead of always using forward slashes.
+  return glob.sync(p, { realpath: true })
 }
 
 interface AST extends Node {

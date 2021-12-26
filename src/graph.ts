@@ -65,7 +65,7 @@ export function makeGraph(
     })
 
     matches.sort((a, b) => {
-      return a.split(path.delimiter).length - b.split(path.delimiter).length
+      return a.split(path.sep).length - b.split(path.sep).length
     })
 
     return matches[0]
@@ -79,6 +79,9 @@ export function makeGraph(
 
       // Now we have to get the path for each link in the document.
       links.forEach((l) => {
+        // This is required to make sure links are correct for Windows
+        l = path.normalize(l)
+
         // Pipes are used by Obsidian to make an alias
         const parts = l.split('|')
 
@@ -86,6 +89,8 @@ export function makeGraph(
         const linkFileName = path.extname(parts[0])
           ? parts[0]
           : parts[0] + '.md'
+
+        console.log(linkFileName)
 
         // As of 2021-11-01, Obsidian supports three modes of link creation.
         // However, this only effects _new_ links, so we must be prepared to resolve
