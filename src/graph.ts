@@ -111,7 +111,16 @@ export function makeGraph(
         // If the file path was not found, then it must be a non-existant file,
         // because we already scanned all files
         if (!fullPath) {
-          console.debug(`Could not find link ${linkFileName}`)
+          if (options.nonexistantLinkMode === 'Link') {
+            siteGraph.nodes[key].links[linkFileName] = {
+              direction: 'out',
+              nonexistantFile: true,
+            }
+          }
+
+          console.debug(
+            `Could not find link ${linkFileName}. Non-existent Mode: "${options.nonexistantLinkMode}".`,
+          )
           return
         }
 

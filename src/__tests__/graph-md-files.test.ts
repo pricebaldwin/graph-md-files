@@ -12,7 +12,7 @@ describe('graph with default options', () => {
   const rootDir = path.join(__dirname, '../../test vault')
   let graph = makeGraph(rootDir)
 
-  it.only('has the expected number of nodes', () => {
+  it('has the expected number of nodes', () => {
     console.log(graph)
     expect(Object.keys(graph.nodes).length).toBe(NUM_TEST_FILES)
   })
@@ -145,5 +145,31 @@ describe('Runtime tests', () => {
       slug: 'test-vault-index',
       aliases: ['this', 'is', 'an', 'array'],
     })
+  })
+
+  it('does not include non-existant files by default', () => {
+    const p = path.join(rootDir, '/index.md')
+    let graph = makeGraph(rootDir)
+
+    const ourNode = graph.nodes[p]
+
+    expect(
+      ourNode.links['notes/a file which definitely does not exist.md'],
+    ).not.toBeDefined()
+  })
+})
+
+describe('graph with non-standard options', () => {
+  const rootDir = path.join(__dirname, '../../test vault')
+
+  it('adds non-existant files as links when NonexistantLinkMode === "Link"', () => {
+    const p = path.join(rootDir, '/index.md')
+    let graph = makeGraph(rootDir, { nonexistantLinkMode: 'Link' })
+
+    const ourNode = graph.nodes[p]
+
+    expect(
+      ourNode.links['notes/a file which definitely does not exist.md'],
+    ).toBeDefined()
   })
 })

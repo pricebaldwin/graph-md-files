@@ -23,6 +23,7 @@ export interface GraphNode<T = { [key: string]: any }> {
 export interface GraphLink {
   direction: GraphLinkDirection
   alias?: string
+  nonexistantFile?: boolean
 }
 
 export interface MarkdownGraph {
