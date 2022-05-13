@@ -8,15 +8,16 @@ export type ObsidianLinkModes =
   | 'Absolute Path'
   | 'Relative Path'
 
-export interface GraphNode {
+export interface GraphNode<T = { [key: string]: any }> {
+  content?: string
   exists: boolean
   filePath: string
-  isEmpty: boolean
-  title: string
-  content?: string
+  frontmatter: T
   hash?: string
-  type?: GraphNodeType
+  isEmpty: boolean
   links: { [key: string]: GraphLink }
+  title: string
+  type?: GraphNodeType
 }
 
 export interface GraphLink {
@@ -34,7 +35,7 @@ export interface FrontmatterContent extends matter.GrayMatterFile<string> {
 }
 
 export interface GraphOptions {
-  mode: ObsidianLinkModes
-  caseSensitivity: boolean
-  nonexistantLinkMode: NonexistantLinkMode
+  mode?: ObsidianLinkModes
+  caseSensitivity?: boolean
+  nonexistantLinkMode?: NonexistantLinkMode
 }

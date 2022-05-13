@@ -1,6 +1,7 @@
 import * as path from 'path'
 import makeGraph from '../index'
 
+// The number of files in the test vault
 const NUM_TEST_FILES = 10
 
 it('throws an error if the vault path does not exist', () => {
@@ -11,15 +12,15 @@ describe('graph with default options', () => {
   const rootDir = path.join(__dirname, '../../test vault')
   let graph = makeGraph(rootDir)
 
-  it('has the expected number of nodes', () => {
-    // The number of files in the test vault
+  it.only('has the expected number of nodes', () => {
+    console.log(graph)
     expect(Object.keys(graph.nodes).length).toBe(NUM_TEST_FILES)
   })
 
   it('holds nodes by the expected path', () => {
     const p = path.join(
       rootDir,
-      "/books/The Hitchiker's Guide to the Galaxy is really about post-nationalistic deconstructionalism.md"
+      "/books/The Hitchiker's Guide to the Galaxy is really about post-nationalistic deconstructionalism.md",
     )
     expect(graph.nodes[p]).toBeDefined()
   })
@@ -27,11 +28,11 @@ describe('graph with default options', () => {
   it('marks outbound and inbound links correctly in wiki format', () => {
     const p = path.join(
       rootDir,
-      "/books/The Hitchiker's Guide to the Galaxy is really about post-nationalistic deconstructionalism.md"
+      "/books/The Hitchiker's Guide to the Galaxy is really about post-nationalistic deconstructionalism.md",
     )
     const p2 = path.join(
       rootDir,
-      '/notes/Post-nationalistic deconstructionalism.md'
+      '/notes/Post-nationalistic deconstructionalism.md',
     )
 
     // We find a link from P out to P2
@@ -79,9 +80,9 @@ describe('graph with default options', () => {
     console.log(graph.nodes[p].links)
 
     expect(
-      Object.keys(graph.nodes[p].links).some(key =>
-        key.includes('/posts/An ode to camels.md')
-      )
+      Object.keys(graph.nodes[p].links).some((key) =>
+        key.includes('/posts/An ode to camels.md'),
+      ),
     ).toBeFalsy()
   })
 
@@ -115,7 +116,7 @@ describe('Runtime tests', () => {
     makeGraph(rootDir)
 
     expect(consoleSpy).toHaveBeenCalledWith(
-      expect.stringContaining('Could not find link')
+      expect.stringContaining('Could not find link'),
     )
   })
 
@@ -131,5 +132,18 @@ describe('Runtime tests', () => {
 
     expect(graph.nodes[p].links[p2]['direction']).toBe('out')
     expect(consoleSpy).toHaveBeenCalledWith('Empty file')
+  })
+
+  it('retrieves frontmatter as data', () => {
+    const p = path.join(rootDir, '/index.md')
+    let graph = makeGraph(rootDir)
+
+    const ourNode = graph.nodes[p]
+
+    expect(ourNode.frontmatter).toEqual({
+      date: new Date('2022-05-12T00:00:00.000Z'),
+      slug: 'test-vault-index',
+      aliases: ['this', 'is', 'an', 'array'],
+    })
   })
 })

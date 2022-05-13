@@ -44,6 +44,7 @@ export function makeGraph(
     // The node is list is an object, to ensure that only one node exists for a given path.
     siteGraph.nodes[filePath] = {
       content: fileDetails.content,
+      frontmatter: fileDetails.data,
       exists: true,
       filePath: filePath,
       isEmpty: fileDetails.isEmpty,

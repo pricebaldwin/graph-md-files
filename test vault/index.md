@@ -1,3 +1,9 @@
+---
+date: 2022-05-12
+slug: test-vault-index
+aliases: [this, is, an, array]
+---
+
 # Test Index
 
 This http://obsidian.md/ style vault is intended to show all of the functionality that the Obsidian Grapher tool can parse.

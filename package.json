@@ -1,6 +1,6 @@
 {
   "name": "graph-md-files",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "MIT",
   "description": "Takes a folder containing markdown files and produces a graph object containing relationships between the files based on markdown links or wikilinks",
   "keywords": [
